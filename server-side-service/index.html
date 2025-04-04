@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>File Viewer</title>
+</head>
+
+<body>
+    <h1>File Content</h1>
+    <div id="content"></div>
+    <video id="video" controls style="width: 100%; display: none;"></video>
+    <script>
+        async function fetchFile(filename) {
+            const response = await fetch(`/file/${filename}`);
+            const contentType = response.headers.get('Content-Type');
+            if (contentType.includes('video')) {
+                const video = document.getElementById('video');
+                video.src = `/file/${filename}`;
+                video.style.display = 'block';
+            } else {
+                const content = await response.text();
+                document.getElementById('content').innerHTML = content;
+            }
+        }
+
+        // Gọi hàm fetchFile với tên file bạn muốn đọc
+        fetchFile('jx8Wc5sBO8MsNFsHJB8ccRL39U8wIL.gtkrc-xfce'); // Thay thế tên file của bạn
+    </script>
+</body>
+
+</html>
